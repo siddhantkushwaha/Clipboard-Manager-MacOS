@@ -1,20 +1,56 @@
 import Foundation
-import Swifter
+import SwiftyJSON
+import Socket
 
 class Server {
-    
-    private var server:Socket? = nil;
-    
-     init() {
+       
+    public func startListening(port:Int) {
         do {
-            server = try Socket.tcpSocketForListen(1625, true);
+            var newClientSocket = try Socket.create()
+            try newClientSocket.listen(on: port, maxBacklogSize: 10, allowPortReuse: false)
+            
+            while (true) {
+                print("Listening for new client.")
+                try newClientSocket.acceptConnection()
+                
+                let clientSocket = newClientSocket
+                DispatchQueue.global(qos: .background).async {
+                    self.handleClient(clientSocket:clientSocket)
+                }
+                
+                newClientSocket = try Socket.create()
+                try newClientSocket.listen(on: port, maxBacklogSize: 10, allowPortReuse: false)
+            }
         }
-        catch {
-        
+        catch let error {
+            print(error.localizedDescription)
+            exit(1)
         }
     }
     
-    private func startListenting() -> Void {
-        
+    private func handleClient(clientSocket: Socket) {
+        do {
+            try clientSocket.setReadTimeout(value:5000)
+            try clientSocket.setWriteTimeout(value:5000)
+            
+            let messageReceived = try clientSocket.readString()!
+            
+            let messageUnserialized = JSON(parseJSON: messageReceived)
+            
+            // consume this message
+            print(messageUnserialized)
+            
+            let response = [
+                "status": 0
+            ]
+            let responseSerialized = JSON(response).rawString()!
+            
+            try clientSocket.write(from: responseSerialized)
+            clientSocket.close()
+        }
+        catch let error {
+            print(error.localizedDescription)
+            exit(1)
+        }
     }
 }
