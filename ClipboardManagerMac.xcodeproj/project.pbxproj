@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2439AEFF59D03012958F9815 /* libPods-ClipboardManagerMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9614403E3A8EB4420B9039 /* libPods-ClipboardManagerMac.a */; };
 		D69F35CD2692276500C15C9F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69F35CC2692276500C15C9F /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,8 +24,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D9614403E3A8EB4420B9039 /* libPods-ClipboardManagerMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClipboardManagerMac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		676B2E8AF6C9224797C27224 /* Pods-ClipboardManagerMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClipboardManagerMac.debug.xcconfig"; path = "Target Support Files/Pods-ClipboardManagerMac/Pods-ClipboardManagerMac.debug.xcconfig"; sourceTree = "<group>"; };
 		D69F35C92692276500C15C9F /* ClipboardManagerMac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ClipboardManagerMac; sourceTree = BUILT_PRODUCTS_DIR; };
 		D69F35CC2692276500C15C9F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		F66E54C814BE5057E5F66BEC /* Pods-ClipboardManagerMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClipboardManagerMac.release.xcconfig"; path = "Target Support Files/Pods-ClipboardManagerMac/Pods-ClipboardManagerMac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,17 +36,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2439AEFF59D03012958F9815 /* libPods-ClipboardManagerMac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		150F734AEE750122D8D86A52 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				676B2E8AF6C9224797C27224 /* Pods-ClipboardManagerMac.debug.xcconfig */,
+				F66E54C814BE5057E5F66BEC /* Pods-ClipboardManagerMac.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		2143A51DA9D3F2E87EE544B4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D9614403E3A8EB4420B9039 /* libPods-ClipboardManagerMac.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D69F35C02692276500C15C9F = {
 			isa = PBXGroup;
 			children = (
 				D69F35CB2692276500C15C9F /* ClipboardManagerMac */,
 				D69F35CA2692276500C15C9F /* Products */,
+				150F734AEE750122D8D86A52 /* Pods */,
+				2143A51DA9D3F2E87EE544B4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,6 +94,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D69F35D02692276500C15C9F /* Build configuration list for PBXNativeTarget "ClipboardManagerMac" */;
 			buildPhases = (
+				C64605D1928BEED10E2DC5ED /* [CP] Check Pods Manifest.lock */,
 				D69F35C52692276500C15C9F /* Sources */,
 				D69F35C62692276500C15C9F /* Frameworks */,
 				D69F35C72692276500C15C9F /* CopyFiles */,
@@ -113,6 +139,31 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C64605D1928BEED10E2DC5ED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ClipboardManagerMac-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D69F35C52692276500C15C9F /* Sources */ = {
@@ -243,6 +294,7 @@
 		};
 		D69F35D12692276500C15C9F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 676B2E8AF6C9224797C27224 /* Pods-ClipboardManagerMac.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -252,6 +304,7 @@
 		};
 		D69F35D22692276500C15C9F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F66E54C814BE5057E5F66BEC /* Pods-ClipboardManagerMac.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
