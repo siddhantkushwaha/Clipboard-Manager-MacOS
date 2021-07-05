@@ -5,7 +5,7 @@ var count: Int = pasteboard.changeCount
 
 repeat{
     
-    usleep(5 * 1000 * 1000)
+    usleep(2 * 1000 * 1000)
     
     if(count < pasteboard.changeCount) {
         count = pasteboard.changeCount
