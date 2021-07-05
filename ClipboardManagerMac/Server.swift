@@ -3,11 +3,16 @@ import SwiftyJSON
 import Socket
 
 class Server {
+    
+    let port:Int
+    init(port: Int) {
+        self.port = port
+    }
        
-    public func startListening(port:Int) {
+    public func startListening() {
         do {
             var newClientSocket = try Socket.create()
-            try newClientSocket.listen(on: port, maxBacklogSize: 10, allowPortReuse: false)
+            try newClientSocket.listen(on: self.port, maxBacklogSize: 10, allowPortReuse: false)
             
             while (true) {
                 print("Listening for new client.")
@@ -19,7 +24,7 @@ class Server {
                 }
                 
                 newClientSocket = try Socket.create()
-                try newClientSocket.listen(on: port, maxBacklogSize: 10, allowPortReuse: false)
+                try newClientSocket.listen(on: self.port, maxBacklogSize: 10, allowPortReuse: false)
             }
         }
         catch let error {
