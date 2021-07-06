@@ -11,40 +11,43 @@ class ClipboardApp {
     let serverConnection:Client
     var waitTimeMicroSeconds:UInt32 = 2 * 1000 * 1000
     
-    var lastSuccessfullUpdate: Dictionary<String, Any>? = nil
+    var lastSuccessfullUpdate: JSON? = nil
     
     init(clipboardServerPort: Int) {
         self.serverConnection = Client(port: clipboardServerPort)
     }
     
-    private func sendUpdate(update: Dictionary<String, Any>) {
-        if let lastUpdate = lastSuccessfullUpdate {
-            if (NSDictionary(dictionary: lastUpdate).isEqual(to: update)) {
-                print("Matches with last update, discarded.")
-                return
-            }
+    private func sendUpdate(update: JSON) {
+        if (lastSuccessfullUpdate == update) {
+            print("Matches with last update, discarded.")
+            return
         }
     
         print("Clipboard changed on local setup, update received.", update)
-        let status = self.serverConnection.sendMessage(message: update)?["status"] as? Int ?? -1
+        let response = self.serverConnection.sendMessage(message: update)
+        print(response)
+        
+        let status = response?["status"].int ?? -1
         if (status == 0) {
             lastSuccessfullUpdate = update
         }
     }
     
-    public func updateClipboard(update: Dictionary<String, Any>) {
+    public func updateClipboard(update: JSON) {
         clipboardLock.lock()
         
         print("Updating clipboard.")
-        let type = update["type"] as? Int ?? -1
+        let type = update["type"].int ?? -1
         switch(type)
         {
             case 1:
                 
                 // for text
-                let text = update["text"] as? String ?? ""
+                let text = update["text"].string ?? ""
                 if (!text.isEmpty) {
-                    if (pasteboard.setString(text, forType: .string)) {
+                    pasteboard.clearContents()
+                    let retCode = pasteboard.setString(text, forType: .string)
+                    if (retCode) {
                         print("Clipboard updated.")
                     }
                     else {
@@ -100,10 +103,10 @@ class ClipboardApp {
                             }
                         }
                         
-                        let clipboardUpdate = [
+                        let clipboardUpdate:JSON = [
                             "type":2,
                             "files":files
-                        ] as [String : Any]
+                        ]
                         sendUpdate(update: clipboardUpdate)
 
                         // in current pasteboard if file urls are present,
@@ -120,10 +123,10 @@ class ClipboardApp {
                             continue
                         }
 
-                        let clipboardUpdate = [
+                        let clipboardUpdate:JSON = [
                             "type":1,
                             "text":stringData
-                        ] as [String : Any]
+                        ]
                         sendUpdate(update: clipboardUpdate)
 
                         // string has lowest priority

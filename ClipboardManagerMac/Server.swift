@@ -42,26 +42,30 @@ class Server {
             try clientSocket.setWriteTimeout(value:5000)
             
             let messageReceived = try clientSocket.readString()!
-            print("Message received", messageReceived)
+            print("Message string received", messageReceived)
             
             var status = 1
-            if let messageUnserialized:Dictionary<String, Any> = JSON(parseJSON: messageReceived).dictionary {
-                let messageType = messageUnserialized["messageType"] as? String ?? ""
-                switch messageType {
-                case "updateClipboard":
-                    
-                    if let updateMessage = messageUnserialized["updateMessage"] as? Dictionary<String, Any> {
-                        clipboardApp.updateClipboard(update: updateMessage)
-                        status = 0
-                    }
-                    
-                    break
-                default:
-                    
+            
+            let messageJSON = JSON(parseJSON: messageReceived)
+            
+                
+            print("Message dict received", messageJSON)
+                
+            let messageType = messageJSON["messageType"].string ?? ""
+                
+            switch messageType {
+            case "updateClipboard":
+
+                clipboardApp.updateClipboard(update: messageJSON["updateMessage"])
+                status = 0
+
+                break
+            default:
+
                     // type not supported
-                    
-                    break
-                }
+
+                break
+            
             }
             
             let response = [

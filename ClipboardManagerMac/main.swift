@@ -23,7 +23,7 @@ private func main() {
     DispatchQueue.global(qos: .background).async {
         clipboardApp.startListening()
     }
-    
+
     print("Starting clipboard manager server.")
     let server = Server(port: clipboardManagerport, clipboardApp: clipboardApp)
     server.startListening()

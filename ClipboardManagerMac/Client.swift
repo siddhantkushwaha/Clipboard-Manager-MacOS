@@ -28,13 +28,11 @@ class Client {
         return messageReceived
     }
     
-    public func sendMessage(message:Dictionary<String, Any>) -> Dictionary<String, Any>? {
-        var messageUnserialized:Dictionary<String, Any>? = nil
-        
-        let messageSerialized = JSON(message).rawString()!
+    public func sendMessage(message:JSON) -> JSON? {
+        let messageSerialized = message.rawString()!
         let messageReceived = sendMessage(message: messageSerialized)!
-        messageUnserialized = JSON(parseJSON: messageReceived).dictionary
         
+        let messageUnserialized = JSON(parseJSON: messageReceived)
         return messageUnserialized
     }
 }
