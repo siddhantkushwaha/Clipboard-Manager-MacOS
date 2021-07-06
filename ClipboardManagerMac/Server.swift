@@ -5,8 +5,11 @@ import SwiftyJSON
 class Server {
     
     let port:Int
-    init(port: Int) {
+    let clipboardApp:ClipboardApp
+    
+    init(port: Int, clipboardApp:ClipboardApp) {
         self.port = port
+        self.clipboardApp = clipboardApp
     }
        
     public func startListening() {
@@ -39,14 +42,30 @@ class Server {
             try clientSocket.setWriteTimeout(value:5000)
             
             let messageReceived = try clientSocket.readString()!
+            print("Message received", messageReceived)
             
-            let messageUnserialized = JSON(parseJSON: messageReceived)
-            
-            // consume this message
-            print(messageUnserialized)
+            var status = 1
+            if let messageUnserialized:Dictionary<String, Any> = JSON(parseJSON: messageReceived).dictionary {
+                let messageType = messageUnserialized["messageType"] as? String ?? ""
+                switch messageType {
+                case "updateClipboard":
+                    
+                    if let updateMessage = messageUnserialized["updateMessage"] as? Dictionary<String, Any> {
+                        clipboardApp.updateClipboard(update: updateMessage)
+                        status = 0
+                    }
+                    
+                    break
+                default:
+                    
+                    // type not supported
+                    
+                    break
+                }
+            }
             
             let response = [
-                "status": 0
+                "status": status
             ]
             let responseSerialized = JSON(response).rawString()!
             

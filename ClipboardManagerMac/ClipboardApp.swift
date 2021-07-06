@@ -8,13 +8,13 @@ class ClipboardApp {
     
     let pasteboard: NSPasteboard = NSPasteboard.general
     
-    var clipboardServerPort = -1
+    let serverConnection:Client
     var waitTimeMicroSeconds:UInt32 = 2 * 1000 * 1000
     
     var lastSuccessfullUpdate: Dictionary<String, Any>? = nil
     
     init(clipboardServerPort: Int) {
-        self.clipboardServerPort = clipboardServerPort
+        self.serverConnection = Client(port: clipboardServerPort)
     }
     
     private func sendUpdate(update: Dictionary<String, Any>) {
@@ -24,23 +24,46 @@ class ClipboardApp {
                 return
             }
         }
-        
-        let updateString = JSON(update).rawString()
-        if let updateString = updateString {
-            print("Clipboard changed on local setup, update received.", updateString)
-            
-            // TODO - send update string to clipboard server
+    
+        print("Clipboard changed on local setup, update received.", update)
+        let status = self.serverConnection.sendMessage(message: update)?["status"] as? Int ?? -1
+        if (status == 0) {
             lastSuccessfullUpdate = update
-        }
-        else {
-            print("Failed to serialize update message.")
         }
     }
     
     public func updateClipboard(update: Dictionary<String, Any>) {
         clipboardLock.lock()
         
-        // TDOD - modify clipboard based on update, AND
+        print("Updating clipboard.")
+        let type = update["type"] as? Int ?? -1
+        switch(type)
+        {
+            case 1:
+                
+                // for text
+                let text = update["text"] as? String ?? ""
+                if (!text.isEmpty) {
+                    if (pasteboard.setString(text, forType: .string)) {
+                        print("Clipboard updated.")
+                    }
+                    else {
+                        print("Failed to update clipboard with text.", text)
+                    }
+                }
+                
+                break
+            case 2:
+                
+                // files - implement later
+                
+                break
+            default:
+                
+                // skip
+                
+                break;
+        }
         lastSuccessfullUpdate = update
         
         clipboardLock.unlock()

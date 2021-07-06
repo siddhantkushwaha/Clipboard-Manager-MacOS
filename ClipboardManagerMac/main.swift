@@ -25,7 +25,7 @@ private func main() {
     }
     
     print("Starting clipboard manager server.")
-    let server = Server(port: clipboardManagerport)
+    let server = Server(port: clipboardManagerport, clipboardApp: clipboardApp)
     server.startListening()
 }
 
