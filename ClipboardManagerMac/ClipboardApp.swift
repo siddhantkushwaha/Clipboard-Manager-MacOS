@@ -24,8 +24,14 @@ class ClipboardApp {
         }
     
         print("Clipboard changed on local setup, update received.", update)
-        let response = self.serverConnection.sendMessage(message: update)
-        print(response)
+        
+        let commandMessage:JSON = [
+            "messageType": "syncMessage",
+            "updateMessage": update
+        ]
+        
+        let response = self.serverConnection.sendMessage(message: commandMessage)
+        print(response?.rawString() ?? "null")
         
         let status = response?["status"].int ?? -1
         if (status == 0) {

@@ -48,7 +48,6 @@ class Server {
             
             let messageJSON = JSON(parseJSON: messageReceived)
             
-                
             print("Message dict received", messageJSON)
                 
             let messageType = messageJSON["messageType"].string ?? ""
