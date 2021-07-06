@@ -1,21 +1,59 @@
 import Foundation
 import Cocoa
+import SwiftyJSON
 
 class ClipboardApp {
     
+    private let lock = NSLock()
+    private let pasteboard: NSPasteboard = NSPasteboard.general
+    
     var clipboardServerPort = -1
+    var waitTimeMicroSeconds:UInt32 = 2 * 1000 * 1000
+    
+    var lastSuccessfullUpdate: Dictionary<String, Any>? = nil
+    
     init(clipboardServerPort: Int) {
         self.clipboardServerPort = clipboardServerPort
     }
     
+    private func sendUpdate(update: Dictionary<String, Any>) {
+        
+        if let lastUpdate = lastSuccessfullUpdate {
+            if (NSDictionary(dictionary: lastUpdate).isEqual(to: update)) {
+                print("Matches with last update, discarded.")
+                return
+            }
+        }
+        
+        let updateString = JSON(update).rawString()
+        if let updateString = updateString {
+            print("Clipboard changed on local setup, update received.", updateString)
+            
+            // TODO - send update string to clipboard server
+            lastSuccessfullUpdate = update
+        }
+        else {
+            print("Failed to serialize update message.")
+        }
+    }
+    
+    public func updateClipboard(update: Dictionary<String, Any>) {
+        lock.lock()
+        
+        // TDOD - modify clipboard based on update, AND
+        lastSuccessfullUpdate = update
+        
+        lock.unlock()
+    }
+    
     public func startListening() {
-        let pasteboard: NSPasteboard = NSPasteboard.general
         var count: Int = pasteboard.changeCount
-
-        repeat{
-
-            usleep(2 * 1000 * 1000)
-
+        repeat {
+            usleep(self.waitTimeMicroSeconds)
+            
+            // take lock before reading pasteboard since it could be modified by updateClipboard
+            lock.lock()
+            
             if(count < pasteboard.changeCount) {
                 count = pasteboard.changeCount
 
@@ -31,9 +69,19 @@ class ClipboardApp {
                             continue
                         }
 
+                        var files: [String] = []
                         for fileURL in fileURls {
-                            print(fileURL)
+                            let path = NSURL(fileURLWithPath: String(describing: fileURL)).path
+                            if let path = path {
+                                files.append(path)
+                            }
                         }
+                        
+                        let clipboardUpdate = [
+                            "type":2,
+                            "files":files
+                        ] as [String : Any]
+                        sendUpdate(update: clipboardUpdate)
 
                         // in current pasteboard if file urls are present,
                         // same filenames are also present as string which have to be discarded
@@ -49,7 +97,11 @@ class ClipboardApp {
                             continue
                         }
 
-                        print(stringData)
+                        let clipboardUpdate = [
+                            "type":1,
+                            "text":stringData
+                        ] as [String : Any]
+                        sendUpdate(update: clipboardUpdate)
 
                         // string has lowest priority
                         found = true
@@ -66,8 +118,9 @@ class ClipboardApp {
                         break
                     }
                 }
-
             }
+            
+            lock.unlock()
 
         } while true
     }
