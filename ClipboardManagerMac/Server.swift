@@ -1,6 +1,6 @@
 import Foundation
-import SwiftyJSON
 import Socket
+import SwiftyJSON
 
 class Server {
     
@@ -13,16 +13,16 @@ class Server {
         do {
             var newClientSocket = try Socket.create()
             try newClientSocket.listen(on: self.port, maxBacklogSize: 10, allowPortReuse: false)
-            
+
             while (true) {
                 print("Listening for new client.")
                 try newClientSocket.acceptConnection()
-                
+
                 let clientSocket = newClientSocket
                 DispatchQueue.global(qos: .background).async {
                     self.handleClient(clientSocket:clientSocket)
                 }
-                
+
                 newClientSocket = try Socket.create()
                 try newClientSocket.listen(on: self.port, maxBacklogSize: 10, allowPortReuse: false)
             }

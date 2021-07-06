@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2439AEFF59D03012958F9815 /* libPods-ClipboardManagerMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9614403E3A8EB4420B9039 /* libPods-ClipboardManagerMac.a */; };
+		D60DDA69269402DE002A83CE /* ClipboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DDA68269402DE002A83CE /* ClipboardApp.swift */; };
 		D62B98E326930778007E0CD3 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62B98E226930778007E0CD3 /* Server.swift */; };
 		D69F35CD2692276500C15C9F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69F35CC2692276500C15C9F /* main.swift */; };
 		D6C273B326937BF60098DB5A /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C273B226937BF60098DB5A /* Client.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		3D9614403E3A8EB4420B9039 /* libPods-ClipboardManagerMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClipboardManagerMac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		676B2E8AF6C9224797C27224 /* Pods-ClipboardManagerMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClipboardManagerMac.debug.xcconfig"; path = "Target Support Files/Pods-ClipboardManagerMac/Pods-ClipboardManagerMac.debug.xcconfig"; sourceTree = "<group>"; };
+		D60DDA68269402DE002A83CE /* ClipboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardApp.swift; sourceTree = "<group>"; };
 		D62B98E226930778007E0CD3 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		D69F35C92692276500C15C9F /* ClipboardManagerMac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ClipboardManagerMac; sourceTree = BUILT_PRODUCTS_DIR; };
 		D69F35CC2692276500C15C9F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				D69F35CC2692276500C15C9F /* main.swift */,
 				D62B98E226930778007E0CD3 /* Server.swift */,
 				D6C273B226937BF60098DB5A /* Client.swift */,
+				D60DDA68269402DE002A83CE /* ClipboardApp.swift */,
 			);
 			path = ClipboardManagerMac;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			files = (
 				D62B98E326930778007E0CD3 /* Server.swift in Sources */,
 				D69F35CD2692276500C15C9F /* main.swift in Sources */,
+				D60DDA69269402DE002A83CE /* ClipboardApp.swift in Sources */,
 				D6C273B326937BF60098DB5A /* Client.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

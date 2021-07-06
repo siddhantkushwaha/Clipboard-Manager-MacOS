@@ -1,75 +1,32 @@
+import Foundation
 import Cocoa
 
-public func monitorClipboard() {
+private func main() {
+    var clipboardManagerport = -1
+    var clipboardServerPort = -1
+    if (CommandLine.arguments.count >= 3) {
+        clipboardManagerport = Int(CommandLine.arguments[1]) ?? -1
+        clipboardServerPort = Int(CommandLine.arguments[2]) ?? -1
+    }
+
+    if (clipboardManagerport == -1 || clipboardServerPort == -1) {
+        print("Invalid args.")
+        exit(1)
+    }
     
-    let pasteboard: NSPasteboard = NSPasteboard.general
-    var count: Int = pasteboard.changeCount
+    print("Start clipboard maanger on port", clipboardManagerport)
+    print("Clipboard server port", clipboardServerPort)
+    
+    let clipboardApp = ClipboardApp(clipboardServerPort: clipboardServerPort)
+        
+    // start clipboard monitoring in the background
+    DispatchQueue.global(qos: .background).async {
+        clipboardApp.startListening()
+    }
 
-    repeat{
-
-        usleep(2 * 1000 * 1000)
-
-        if(count < pasteboard.changeCount) {
-            count = pasteboard.changeCount
-
-            var found = false
-            for type in pasteboard.types ?? [] {
-                switch type {
-
-                // files will be handled later on in project Unity
-                case .fileURL:
-                    print("Files were copied.")
-                    let fileURls = pasteboard.readObjects(forClasses: [NSURL.self], options: nil) ?? []
-                    if (fileURls.isEmpty) {
-                        continue
-                    }
-
-                    for fileURL in fileURls {
-                        print(fileURL)
-                    }
-
-                    // in current pasteboard if file urls are present,
-                    // same filenames are also present as string which have to be discarded
-                    found = true
-
-                    break
-
-                // string should have the lowest priority
-                case .string:
-                    print("New text added to clipboard.")
-                    let stringData = pasteboard.string(forType: type) ?? ""
-                    if (stringData.isEmpty) {
-                        continue
-                    }
-
-                    print(stringData)
-
-                    // string has lowest priority
-                    found = true
-
-                    break
-                default:
-
-                    print("Data format not supported as of now.")
-
-                    break
-                }
-
-                if (found) {
-                    break
-                }
-            }
-
-        }
-
-    } while true
+    print("Starting clipboard manager server.")
+    let server = Server(port: clipboardManagerport)
+    server.startListening()
 }
 
-monitorClipboard()
-
-// let server = Server(port: 1625)
-// server.startListening()
-
-// let client = Client(port: 1626)
-// let response = client.sendMessage(message: ["key":"val", "key2":1])
-// print(response)
+main()
