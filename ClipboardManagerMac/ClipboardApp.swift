@@ -103,11 +103,12 @@ class ClipboardApp {
                             }
                         }
                         
-                        let clipboardUpdate:JSON = [
-                            "type":2,
-                            "files":files
-                        ]
-                        sendUpdate(update: clipboardUpdate)
+                        // Disabling for now, file transfer needs to be figured out
+                        // let clipboardUpdate:JSON = [
+                        //    "type":2,
+                        //    "files":files
+                        // ]
+                        // sendUpdate(update: clipboardUpdate)
 
                         // in current pasteboard if file urls are present,
                         // same filenames are also present as string which have to be discarded
