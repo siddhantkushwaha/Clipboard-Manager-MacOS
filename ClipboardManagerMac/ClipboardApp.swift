@@ -4,8 +4,9 @@ import SwiftyJSON
 
 class ClipboardApp {
     
-    private let lock = NSLock()
-    private let pasteboard: NSPasteboard = NSPasteboard.general
+    private let clipboardLock = NSLock()
+    
+    let pasteboard: NSPasteboard = NSPasteboard.general
     
     var clipboardServerPort = -1
     var waitTimeMicroSeconds:UInt32 = 2 * 1000 * 1000
@@ -17,7 +18,6 @@ class ClipboardApp {
     }
     
     private func sendUpdate(update: Dictionary<String, Any>) {
-        
         if let lastUpdate = lastSuccessfullUpdate {
             if (NSDictionary(dictionary: lastUpdate).isEqual(to: update)) {
                 print("Matches with last update, discarded.")
@@ -38,12 +38,12 @@ class ClipboardApp {
     }
     
     public func updateClipboard(update: Dictionary<String, Any>) {
-        lock.lock()
+        clipboardLock.lock()
         
         // TDOD - modify clipboard based on update, AND
         lastSuccessfullUpdate = update
         
-        lock.unlock()
+        clipboardLock.unlock()
     }
     
     public func startListening() {
@@ -52,7 +52,7 @@ class ClipboardApp {
             usleep(self.waitTimeMicroSeconds)
             
             // take lock before reading pasteboard since it could be modified by updateClipboard
-            lock.lock()
+            clipboardLock.lock()
             
             if(count < pasteboard.changeCount) {
                 count = pasteboard.changeCount
@@ -120,7 +120,7 @@ class ClipboardApp {
                 }
             }
             
-            lock.unlock()
+            clipboardLock.unlock()
 
         } while true
     }
