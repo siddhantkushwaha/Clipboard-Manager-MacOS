@@ -3,15 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2439AEFF59D03012958F9815 /* libPods-ClipboardManagerMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D9614403E3A8EB4420B9039 /* libPods-ClipboardManagerMac.a */; };
 		D60DDA69269402DE002A83CE /* ClipboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60DDA68269402DE002A83CE /* ClipboardApp.swift */; };
 		D62B98E326930778007E0CD3 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62B98E226930778007E0CD3 /* Server.swift */; };
 		D69F35CD2692276500C15C9F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69F35CC2692276500C15C9F /* main.swift */; };
 		D6C273B326937BF60098DB5A /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C273B226937BF60098DB5A /* Client.swift */; };
+		D6EE5DA12B1B9D89007B8D02 /* Socket in Frameworks */ = {isa = PBXBuildFile; productRef = D6EE5DA02B1B9D89007B8D02 /* Socket */; };
+		D6EE5DA42B1B9DD3007B8D02 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = D6EE5DA32B1B9DD3007B8D02 /* SwiftyJSON */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,14 +28,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3D9614403E3A8EB4420B9039 /* libPods-ClipboardManagerMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClipboardManagerMac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		676B2E8AF6C9224797C27224 /* Pods-ClipboardManagerMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClipboardManagerMac.debug.xcconfig"; path = "Target Support Files/Pods-ClipboardManagerMac/Pods-ClipboardManagerMac.debug.xcconfig"; sourceTree = "<group>"; };
+		5E6F83F124379D61E76B472F /* Pods-ClipboardManagerMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClipboardManagerMac.debug.xcconfig"; path = "Target Support Files/Pods-ClipboardManagerMac/Pods-ClipboardManagerMac.debug.xcconfig"; sourceTree = "<group>"; };
 		D60DDA68269402DE002A83CE /* ClipboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardApp.swift; sourceTree = "<group>"; };
 		D62B98E226930778007E0CD3 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		D69F35C92692276500C15C9F /* ClipboardManagerMac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ClipboardManagerMac; sourceTree = BUILT_PRODUCTS_DIR; };
 		D69F35CC2692276500C15C9F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		D6C273B226937BF60098DB5A /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
-		F66E54C814BE5057E5F66BEC /* Pods-ClipboardManagerMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClipboardManagerMac.release.xcconfig"; path = "Target Support Files/Pods-ClipboardManagerMac/Pods-ClipboardManagerMac.release.xcconfig"; sourceTree = "<group>"; };
+		F86C30B9F5A64CC079CE8997 /* Pods-ClipboardManagerMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClipboardManagerMac.release.xcconfig"; path = "Target Support Files/Pods-ClipboardManagerMac/Pods-ClipboardManagerMac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,28 +42,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2439AEFF59D03012958F9815 /* libPods-ClipboardManagerMac.a in Frameworks */,
+				D6EE5DA42B1B9DD3007B8D02 /* SwiftyJSON in Frameworks */,
+				D6EE5DA12B1B9D89007B8D02 /* Socket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		150F734AEE750122D8D86A52 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				676B2E8AF6C9224797C27224 /* Pods-ClipboardManagerMac.debug.xcconfig */,
-				F66E54C814BE5057E5F66BEC /* Pods-ClipboardManagerMac.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		2143A51DA9D3F2E87EE544B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3D9614403E3A8EB4420B9039 /* libPods-ClipboardManagerMac.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7B2425FDFE0BC51D37EFD6E9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5E6F83F124379D61E76B472F /* Pods-ClipboardManagerMac.debug.xcconfig */,
+				F86C30B9F5A64CC079CE8997 /* Pods-ClipboardManagerMac.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		D69F35C02692276500C15C9F = {
@@ -71,8 +71,8 @@
 			children = (
 				D69F35CB2692276500C15C9F /* ClipboardManagerMac */,
 				D69F35CA2692276500C15C9F /* Products */,
-				150F734AEE750122D8D86A52 /* Pods */,
 				2143A51DA9D3F2E87EE544B4 /* Frameworks */,
+				7B2425FDFE0BC51D37EFD6E9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +112,10 @@
 			dependencies = (
 			);
 			name = ClipboardManagerMac;
+			packageProductDependencies = (
+				D6EE5DA02B1B9D89007B8D02 /* Socket */,
+				D6EE5DA32B1B9DD3007B8D02 /* SwiftyJSON */,
+			);
 			productName = ClipboardManagerMac;
 			productReference = D69F35C92692276500C15C9F /* ClipboardManagerMac */;
 			productType = "com.apple.product-type.tool";
@@ -139,6 +143,10 @@
 				Base,
 			);
 			mainGroup = D69F35C02692276500C15C9F;
+			packageReferences = (
+				D6EE5D9F2B1B9D89007B8D02 /* XCRemoteSwiftPackageReference "BlueSocket" */,
+				D6EE5DA22B1B9DD3007B8D02 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			productRefGroup = D69F35CA2692276500C15C9F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -305,7 +313,7 @@
 		};
 		D69F35D12692276500C15C9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 676B2E8AF6C9224797C27224 /* Pods-ClipboardManagerMac.debug.xcconfig */;
+			baseConfigurationReference = 5E6F83F124379D61E76B472F /* Pods-ClipboardManagerMac.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -315,7 +323,7 @@
 		};
 		D69F35D22692276500C15C9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F66E54C814BE5057E5F66BEC /* Pods-ClipboardManagerMac.release.xcconfig */;
+			baseConfigurationReference = F86C30B9F5A64CC079CE8997 /* Pods-ClipboardManagerMac.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -345,6 +353,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D6EE5D9F2B1B9D89007B8D02 /* XCRemoteSwiftPackageReference "BlueSocket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/BlueSocket";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.4;
+			};
+		};
+		D6EE5DA22B1B9DD3007B8D02 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D6EE5DA02B1B9D89007B8D02 /* Socket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6EE5D9F2B1B9D89007B8D02 /* XCRemoteSwiftPackageReference "BlueSocket" */;
+			productName = Socket;
+		};
+		D6EE5DA32B1B9DD3007B8D02 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6EE5DA22B1B9DD3007B8D02 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D69F35C12692276500C15C9F /* Project object */;
 }
