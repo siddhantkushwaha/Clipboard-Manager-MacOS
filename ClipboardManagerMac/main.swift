@@ -14,7 +14,7 @@ private func main() {
         exit(1)
     }
     
-    print("Start clipboard maanger on port", clipboardManagerport)
+    print("Start clipboard manager on port", clipboardManagerport)
     print("Clipboard server port", clipboardServerPort)
     
     let clipboardApp = ClipboardApp(clipboardServerPort: clipboardServerPort)
